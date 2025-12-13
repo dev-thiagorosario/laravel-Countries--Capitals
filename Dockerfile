@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1.7
 
 FROM composer:2 AS vendor
+ENV COMPOSER_ALLOW_SUPERUSER=1
 WORKDIR /var/www/html
 COPY composer.json composer.lock ./
 RUN composer install \
@@ -8,7 +9,8 @@ RUN composer install \
     --no-progress \
     --no-interaction \
     --prefer-dist \
-    --optimize-autoloader
+    --optimize-autoloader \
+    --no-scripts
 
 FROM node:20-alpine AS frontend
 WORKDIR /var/www/html
