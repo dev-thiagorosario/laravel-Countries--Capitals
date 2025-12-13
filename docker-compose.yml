@@ -1,0 +1,50 @@
+services:
+  app:
+    build:
+      context: .
+      target: php
+    env_file:
+      - .env
+    volumes:
+      - ./.env:/var/www/html/.env:ro
+    depends_on:
+      - db
+    networks:
+      - contrie-net
+
+  nginx:
+    build:
+      context: .
+      target: nginx
+    depends_on:
+      - app
+    ports:
+      - "8080:80"
+    networks:
+      - contrie-net
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-contrie_capitals}
+      POSTGRES_USER: ${DB_USERNAME:-root}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-root} -d ${DB_DATABASE:-contrie_capitals}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    networks:
+      - contrie-net
+
+networks:
+  contrie-net:
+    driver: bridge
+
+volumes:
+  db-data:
