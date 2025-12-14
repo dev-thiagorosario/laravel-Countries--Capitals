@@ -1,4 +1,4 @@
-<x-main-layout pageTitle="Countrie & capitals Quiz">
+<x-main-layout-component pageTitle="Countrie & capitals Quiz">
     <div class="container mt-3">
         <div class="row justify-content-center">
             <div class="col-4 text-center">
@@ -18,4 +18,4 @@
             </div>
         </div>
     </div>
-</x-main-layout>
+</x-main-layout-component>
