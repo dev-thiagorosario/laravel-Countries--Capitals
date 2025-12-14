@@ -46,7 +46,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=app_code /var/www/html /var/www/html
-RUN chown -R ${WWWUSER}:${WWWGROUP} storage bootstrap/cache
+RUN mkdir -p storage bootstrap/cache \
+    && chown -R ${WWWUSER}:${WWWGROUP} storage bootstrap/cache
 EXPOSE 9000
 CMD ["php-fpm"]
 

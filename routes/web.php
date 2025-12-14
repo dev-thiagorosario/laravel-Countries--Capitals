@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\PrepareGameController;
+use App\Http\Controllers\StartGameController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/home');
 
+Route::get('/home', StartGameController::class)->name('start-game');
+Route::post('/home', PrepareGameController::class)->name('prepare-game');
