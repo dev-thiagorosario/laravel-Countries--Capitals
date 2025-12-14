@@ -1,59 +1,86 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Country & Capitals Quiz
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Country & Capitals Quiz is a lightweight Laravel 12 project that delivers a quick trivia experience focused on matching each country to its capital city. The application ships with a clean Bootstrap-based interface, custom styling, and a streamlined flow where the player chooses how many questions they want to answer before starting the round.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Highlights
+- Adjustable challenge length from 3 to 30 questions with a sensible default of 10.
+- Responsive UI powered by Bootstrap 5 and a lightweight custom theme (`public/assets/css/main.css`).
+- Reusable Blade layout and components (`resources/views/components`) for easy UI evolution.
+- Ready-to-extend controllers (`StartGameController`, `PrepareGameController`) so you can plug in any data source or gameplay logic.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Tech Stack
+- **Framework:** Laravel 12 (PHP 8.2+)
+- **Frontend tooling:** Vite, Bootstrap 5, custom CSS
+- **Package management:** Composer for PHP, npm for assets/build tooling
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Getting Started
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 1. Prerequisites
+- PHP 8.2+
+- Composer 2.x
+- Node.js 18+ and npm 9+
+- A supported database (SQLite/MySQL/PostgreSQL/etc.)
 
-## Laravel Sponsors
+### 2. Installation
+```bash
+git clone https://github.com/<your-user>/contrie-capitals.git
+cd contrie-capitals
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+composer install
+cp .env.example .env   # update DB credentials and any API keys
+php artisan key:generate
 
-### Premium Partners
+# optionally set up the database
+php artisan migrate
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+npm install
+npm run build           # or npm run dev for hot reloading
+```
 
-## Contributing
+### 3. Local Development
+Run the Laravel dev server and the Vite dev server in parallel:
+```bash
+php artisan serve
+npm run dev
+```
+Alternatively you can rely on the convenience script defined in `composer.json`:
+```bash
+composer run dev
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Visit `http://localhost:8000/home` to open the quiz landing page where you can pick the number of questions and start the round.
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Project Structure
+- `resources/views/home.blade.php` – main screen with the question count selector and start button.
+- `resources/views/components` – Blade components for the layout, logo, and footer.
+- `public/assets` – static Bootstrap build, favicon, and custom CSS.
+- `app/Http/Controllers` – request entry points, ready for you to plug in quiz preparation logic.
+- `routes/web.php` – user-facing routes for starting and preparing the game.
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Testing
+```bash
+php artisan test
+```
+You can also run `composer test` to execute the same test suite defined in `composer.json`.
+
+---
+
+## Roadmap / Next Steps
+1. Implement `PrepareGameController` to generate randomized country/capital questions (database seeder, API, or static list).
+2. Persist player progress and scoring inside a dedicated table or cache.
+3. Expand the UI with feedback for correct/incorrect answers and a final summary screen.
+
+---
 
 ## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is distributed under the [MIT License](LICENSE). Feel free to use it as a starting point for your own trivia apps or as a learning resource for Laravel 12.
