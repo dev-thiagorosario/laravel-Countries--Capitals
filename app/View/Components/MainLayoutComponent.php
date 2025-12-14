@@ -8,7 +8,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class MainLayout extends Component
+class MainLayoutComponent extends Component
 {
     public string $pageTitle;
 
