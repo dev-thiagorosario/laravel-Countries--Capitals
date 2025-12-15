@@ -13,8 +13,16 @@ final class ValidateAnswerAction
         $questionIndex = max($currentQuestion - 1, 0);
         $questionData = $quiz[$questionIndex] ?? [];
         $correctAnswer = $questionData['correct_answer'] ?? '';
-        $correctAnswers = session('correct_answers');
-        $wrongAnswers = session('wrong_answers');
+        $correctAnswers = (int) session('correct_answers', 0);
+        $wrongAnswers = (int) session('wrong_answers', 0);
+
+        $isCorrect = strcasecmp($answer, $correctAnswer) === 0;
+
+        if ($isCorrect) {
+            $correctAnswers++;
+        } else {
+            $wrongAnswers++;
+        }
 
         session()->put([
             'quiz' => $quiz,
