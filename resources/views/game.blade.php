@@ -1,4 +1,4 @@
-<x-main-layout-component pageTitle="Country Capitals Game">
+<x-main-layout-component pageTitle="Country Capitals Quiz">
 
  <div class="container">
 
@@ -7,15 +7,15 @@
             Pergunta: <span class="text-info fw-bolder">{{ $current_question }} / {{ $total_questions }}</span>
         </div>
 
-        <div class="text-center fs-3 mb-3">
-            QUAL É A CAPITAL DE {{ $country }} ?
-        </div>
-
         <div class="row">
 
-            @foreach ($answers as $answer)
+            @forelse(($answers ?? []) as $answer)
                 <x-answer-component :capital="$answer"></x-answer-component>
-            @endforeach
+            @empty
+                <div class="col-12 text-center">
+                    <p class="text-muted mb-0">As respostas não estão disponíveis. Reinicie o jogo.</p>
+                </div>
+            @endforelse
 
         </div>
 
